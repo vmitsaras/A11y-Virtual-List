@@ -1,0 +1,72 @@
+{
+  "name": "a11y-virtual-list",
+  "version": "1.0.0",
+  "description": "Accessible TypeScript virtual list plugin for huge datasets.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vmitsaras/A11y-Virtual-List.git"
+  },
+  "homepage": "https://github.com/vmitsaras/A11y-Virtual-List#readme",
+  "bugs": {
+    "url": "https://github.com/vmitsaras/A11y-Virtual-List/issues"
+  },
+  "type": "module",
+  "packageManager": "npm@11.12.1",
+  "main": "./dist/index.js",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./docs": {
+      "types": "./dist/docs.d.ts",
+      "import": "./dist/docs.js"
+    },
+    "./styles.css": "./dist/styles.css",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "scripts": {
+    "clean": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\"",
+    "build": "npm run pages:build",
+    "build:dist": "npm run clean && tsdown && npm run copy:assets",
+    "copy:assets": "node -e \"const fs = require('node:fs'); if (fs.existsSync('src/styles.css')) { fs.mkdirSync('dist', { recursive: true }); fs.copyFileSync('src/styles.css', 'dist/styles.css'); }\"",
+    "pages:generate": "node scripts/build-pages.mjs",
+    "pages:build": "npm run build:dist && npm run pages:generate",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "pack:check": "npm pack --dry-run",
+    "package:verify": "node scripts/verify-package.mjs",
+    "verify": "npm run test && npm run typecheck && npm run build && npm run pack:check && npm run package:verify",
+    "prepack": "npm run build:dist",
+    "changeset": "changeset",
+    "version-packages": "changeset version",
+    "release": "npm run test && npm run typecheck && npm run build:dist && changeset publish"
+  },
+  "keywords": [
+    "accessibility",
+    "a11y",
+    "virtual-list",
+    "virtualization",
+    "typescript"
+  ],
+  "author": "Vasileios Mitsaras",
+  "license": "MIT",
+  "devDependencies": {
+    "@changesets/cli": "2.31.0",
+    "happy-dom": "20.10.6",
+    "tsdown": "0.22.3",
+    "typescript": "6.0.3",
+    "vitest": "4.1.9"
+  }
+}

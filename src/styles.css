@@ -1,0 +1,194 @@
+.a11y-virtual-list {
+  --a11y-virtual-list-border: CanvasText;
+  --a11y-virtual-list-bg: Canvas;
+  --a11y-virtual-list-text: CanvasText;
+  --a11y-virtual-list-focus: Highlight;
+  --a11y-virtual-list-muted: GrayText;
+  --a11y-virtual-list-accent: LinkText;
+  --a11y-virtual-list-selected-bg: color-mix(in srgb, Highlight 16%, Canvas);
+  --a11y-virtual-list-row-gap: 0px;
+  --a11y-virtual-list-viewport-height: 28rem;
+
+  --_border: var(--a11y-virtual-list-border);
+  --_bg: var(--a11y-virtual-list-bg);
+  --_text: var(--a11y-virtual-list-text);
+  --_focus: var(--a11y-virtual-list-focus);
+  --_muted: var(--a11y-virtual-list-muted);
+  --_accent: var(--a11y-virtual-list-accent);
+  --_selected-bg: var(--a11y-virtual-list-selected-bg);
+  --_row-gap: var(--a11y-virtual-list-row-gap);
+  --_viewport-height: var(--a11y-virtual-list-viewport-height);
+  --_total-size: 0px;
+  --_offset: 0px;
+
+  color: var(--_text);
+  color-scheme: light dark;
+  display: grid;
+  gap: 0.875rem;
+  inline-size: 100%;
+}
+
+.a11y-virtual-list__header {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.a11y-virtual-list__title {
+  font-size: 1.25rem;
+  line-height: 1.2;
+  margin: 0;
+}
+
+.a11y-virtual-list__description {
+  color: var(--_muted);
+  line-height: 1.5;
+  margin: 0;
+  max-inline-size: 72ch;
+}
+
+.a11y-virtual-list__status {
+  color: var(--_accent);
+  font-weight: 700;
+  line-height: 1.4;
+  margin: 0.25rem 0 0;
+}
+
+.a11y-virtual-list__viewport {
+  background: var(--_bg);
+  border: 2px solid var(--_border);
+  color: var(--_text);
+  max-block-size: var(--_viewport-height);
+  overflow: auto;
+  position: relative;
+  scrollbar-gutter: stable;
+}
+
+.a11y-virtual-list__viewport:focus-visible {
+  outline: 3px solid var(--_focus);
+  outline-offset: 3px;
+}
+
+.a11y-virtual-list__spacer {
+  min-block-size: var(--_total-size);
+  position: relative;
+}
+
+.a11y-virtual-list__items {
+  inset-block-start: 0;
+  inset-inline: 0;
+  list-style-position: inside;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  transform: translateY(var(--_offset));
+}
+
+.a11y-virtual-list__item {
+  align-items: stretch;
+  background: var(--_bg);
+  border-block-end: 1px solid color-mix(in srgb, var(--_border) 22%, transparent);
+  box-sizing: border-box;
+  display: grid;
+  min-block-size: var(--_row-size, 3rem);
+}
+
+.a11y-virtual-list__item-inner {
+  align-items: center;
+  display: grid;
+  gap: 0.5rem;
+  grid-template-columns: minmax(0, 1fr) auto;
+  padding: 0.65rem 0.85rem;
+}
+
+.a11y-virtual-list__item-inner > * {
+  min-inline-size: 0;
+}
+
+.a11y-virtual-list__item-inner > :not(.a11y-virtual-list__item-action) {
+  overflow-wrap: anywhere;
+}
+
+.a11y-virtual-list__item-meta {
+  color: var(--_muted);
+  font-size: 0.875rem;
+  line-height: 1.35;
+}
+
+.a11y-virtual-list__item-badge {
+  align-items: center;
+  background: color-mix(in srgb, var(--_accent) 10%, var(--_bg));
+  border: 1px solid color-mix(in srgb, var(--_border) 35%, transparent);
+  border-radius: 999px;
+  color: var(--_text);
+  display: inline-flex;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  justify-content: center;
+  line-height: 1;
+  min-block-size: 1.75rem;
+  padding: 0.3rem 0.55rem;
+  white-space: nowrap;
+}
+
+.a11y-virtual-list__item-action {
+  background: var(--_bg);
+  border: 1px solid var(--_border);
+  border-radius: 0.35rem;
+  color: var(--_text);
+  cursor: pointer;
+  font: inherit;
+  min-block-size: 2.5rem;
+  padding: 0.35rem 0.55rem;
+  white-space: nowrap;
+}
+
+.a11y-virtual-list__item-action:focus-visible {
+  outline: 3px solid var(--_focus);
+  outline-offset: 2px;
+}
+
+.a11y-virtual-list.is-keyboard-mode .a11y-virtual-list__item {
+  cursor: pointer;
+}
+
+.a11y-virtual-list__item.is-active {
+  outline: 2px solid var(--_focus);
+  outline-offset: -2px;
+}
+
+.a11y-virtual-list__item.is-focused {
+  box-shadow: inset 0.25rem 0 0 var(--_focus);
+}
+
+.a11y-virtual-list__item.is-selected {
+  background: var(--_selected-bg);
+}
+
+.a11y-virtual-list.is-scrolling .a11y-virtual-list__status {
+  opacity: 0.86;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .a11y-virtual-list *,
+  .a11y-virtual-list *::before,
+  .a11y-virtual-list *::after {
+    animation-duration: 0.001ms;
+    animation-iteration-count: 1;
+    scroll-behavior: auto;
+    transition-duration: 0.001ms;
+  }
+}
+
+@media (forced-colors: active) {
+  .a11y-virtual-list__viewport,
+  .a11y-virtual-list__item.is-active,
+  .a11y-virtual-list__item-badge {
+    border-color: CanvasText;
+  }
+
+  .a11y-virtual-list__item.is-selected {
+    forced-color-adjust: none;
+    background: Highlight;
+    color: HighlightText;
+  }
+}

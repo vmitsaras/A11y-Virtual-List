@@ -1,0 +1,904 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Window genuinely large datasets with keyboard navigation, stable focus, range announcements, scroll restoration, and predictable cleanup."
+    >
+    <meta name="author" content="Vasileios Mitsaras">
+    <meta name="robots" content="index,follow">
+    <link
+      rel="canonical"
+      href="https://vmitsaras.github.io/A11y-Virtual-List/"
+    >
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="A11y Virtual List">
+    <meta
+      property="og:title"
+      content="Accessible Virtual Lists | A11y Virtual List"
+    >
+    <meta
+      property="og:description"
+      content="Window genuinely large datasets with keyboard navigation, stable focus, range announcements, scroll restoration, and predictable cleanup."
+    >
+    <meta
+      property="og:url"
+      content="https://vmitsaras.github.io/A11y-Virtual-List/"
+    >
+    <meta
+      property="og:image"
+      content="https://vmitsaras.github.io/A11y-Virtual-List/social-preview.png"
+    >
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="640">
+    <meta
+      property="og:image:alt"
+      content="A11y Virtual List social preview showing a focused window of list rows beside the project name."
+    >
+    <meta name="twitter:card" content="summary_large_image">
+    <meta
+      name="twitter:title"
+      content="Accessible Virtual Lists | A11y Virtual List"
+    >
+    <meta
+      name="twitter:description"
+      content="Window genuinely large datasets with keyboard navigation, stable focus, range announcements, scroll restoration, and predictable cleanup."
+    >
+    <meta
+      name="twitter:image"
+      content="https://vmitsaras.github.io/A11y-Virtual-List/social-preview.png"
+    >
+    <meta
+      name="twitter:image:alt"
+      content="A11y Virtual List social preview showing a focused window of list rows beside the project name."
+    >
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%89%A3%3C/text%3E%3C/svg%3E"
+    >
+    <title>Accessible Virtual Lists | A11y Virtual List</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://vmitsaras.github.io/A11y-Virtual-List/#webpage",
+            "url": "https://vmitsaras.github.io/A11y-Virtual-List/",
+            "name": "Accessible Virtual Lists | A11y Virtual List",
+            "description": "Window genuinely large datasets with keyboard navigation, stable focus, range announcements, scroll restoration, and predictable cleanup.",
+            "inLanguage": "en",
+            "author": {
+              "@id": "https://vmitsaras.github.io/A11y-Virtual-List/#author"
+            },
+            "mainEntity": {
+              "@id": "https://vmitsaras.github.io/A11y-Virtual-List/#software"
+            }
+          },
+          {
+            "@type": "SoftwareSourceCode",
+            "@id": "https://vmitsaras.github.io/A11y-Virtual-List/#software",
+            "name": "a11y-virtual-list",
+            "alternateName": "A11y Virtual List",
+            "description": "Accessible TypeScript virtual list behavior for huge datasets with windowed rendering, keyboard-safe navigation, scroll restoration, and range announcements.",
+            "codeRepository": "https://github.com/vmitsaras/A11y-Virtual-List",
+            "url": "https://vmitsaras.github.io/A11y-Virtual-List/",
+            "programmingLanguage": "TypeScript",
+            "runtimePlatform": "Browser",
+            "license": "MIT",
+            "keywords": [
+              "accessibility",
+              "a11y",
+              "virtual list",
+              "virtualization",
+              "typescript"
+            ],
+            "featureList": [
+              "Windowed rendering for genuinely large lists",
+              "Roving and listbox keyboard navigation",
+              "Stable focus and range announcements",
+              "Scroll restoration and predictable lifecycle cleanup"
+            ],
+            "author": {
+              "@id": "https://vmitsaras.github.io/A11y-Virtual-List/#author"
+            },
+            "targetProduct": {
+              "@type": "SoftwareApplication",
+              "name": "A11y Virtual List",
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "Any",
+              "runtimePlatform": "Browser"
+            },
+            "sameAs": [
+              "https://github.com/vmitsaras/A11y-Virtual-List"
+            ]
+          },
+          {
+            "@type": "Person",
+            "@id": "https://vmitsaras.github.io/A11y-Virtual-List/#author",
+            "name": "Vasileios Mitsaras",
+            "url": "https://github.com/vmitsaras/",
+            "sameAs": [
+              "https://github.com/vmitsaras/",
+              "https://linkedin.com/in/vasilis-mitsaras"
+            ]
+          }
+        ]
+      }
+    </script>
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        --paper: #f2f0e8;
+        --surface: #fffdf7;
+        --surface-strong: #17231f;
+        --ink: #17231f;
+        --muted: #5c6862;
+        --line: #c7ccc3;
+        --accent: #c9f36b;
+        --accent-ink: #17331f;
+        --signal: #ff6b3d;
+        --focus: #5546ff;
+        --shadow: 0 1.25rem 3rem rgb(23 35 31 / 10%);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background:
+          linear-gradient(90deg, rgb(23 35 31 / 5%) 1px, transparent 1px),
+          linear-gradient(rgb(23 35 31 / 5%) 1px, transparent 1px),
+          var(--paper);
+        background-size: 4rem 4rem;
+        color: var(--ink);
+        margin: 0;
+        min-block-size: 100vh;
+      }
+
+      a {
+        color: inherit;
+      }
+
+      a:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 4px;
+      }
+
+      .skip-link {
+        background: var(--surface-strong);
+        color: #fff;
+        inset-block-start: 0.75rem;
+        inset-inline-start: 0.75rem;
+        padding: 0.75rem 1rem;
+        position: fixed;
+        transform: translateY(-200%);
+        z-index: 10;
+      }
+
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+
+      .site-header,
+      main,
+      .demo-footer {
+        inline-size: min(100% - 2rem, 76rem);
+        margin-inline: auto;
+      }
+
+      .site-header {
+        align-items: center;
+        border-block-end: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        padding-block: 1rem;
+      }
+
+      .brand {
+        align-items: center;
+        display: inline-flex;
+        font-size: 0.85rem;
+        font-weight: 800;
+        gap: 0.65rem;
+        letter-spacing: 0.08em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .brand__mark {
+        align-items: center;
+        background: var(--accent);
+        border: 1px solid var(--ink);
+        color: var(--accent-ink);
+        display: inline-flex;
+        font-size: 0.7rem;
+        font-weight: 900;
+        inline-size: 2rem;
+        justify-content: center;
+        letter-spacing: 0;
+        line-height: 1;
+        block-size: 2rem;
+      }
+
+      .repo-link {
+        align-items: center;
+        display: inline-flex;
+        font-size: 0.875rem;
+        font-weight: 750;
+        min-block-size: 2.75rem;
+        text-underline-offset: 0.25em;
+      }
+
+      main {
+        display: grid;
+        gap: clamp(4rem, 9vw, 7rem);
+        grid-template-columns: minmax(0, 1fr);
+        padding-block: clamp(3.5rem, 9vw, 7rem);
+      }
+
+      h1,
+      h2,
+      p {
+        margin-block: 0;
+      }
+
+      h1,
+      h2 {
+        letter-spacing: -0.045em;
+        line-height: 0.98;
+        overflow-wrap: anywhere;
+      }
+
+      h1 {
+        font-size: clamp(3.25rem, 9vw, 7.75rem);
+        max-inline-size: 11ch;
+      }
+
+      h2 {
+        font-size: clamp(2rem, 5vw, 4rem);
+      }
+
+      p,
+      li {
+        line-height: 1.65;
+      }
+
+      .eyebrow {
+        align-items: center;
+        display: flex;
+        font-size: 0.75rem;
+        font-weight: 850;
+        gap: 0.65rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before {
+        background: var(--signal);
+        border-radius: 50%;
+        content: "";
+        block-size: 0.65rem;
+        inline-size: 0.65rem;
+      }
+
+      .hero {
+        align-items: end;
+        display: grid;
+        gap: clamp(2.5rem, 6vw, 5rem);
+        grid-template-columns: minmax(0, 1.25fr) minmax(18rem, 0.75fr);
+      }
+
+      .hero__copy {
+        display: grid;
+        gap: 1.5rem;
+      }
+
+      .hero__lead {
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2vw, 1.35rem);
+        max-inline-size: 54ch;
+      }
+
+      .hero__actions {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.8rem;
+      }
+
+      .button-link {
+        align-items: center;
+        background: var(--surface-strong);
+        border: 2px solid var(--surface-strong);
+        color: #fff;
+        display: inline-flex;
+        font-weight: 800;
+        gap: 0.75rem;
+        min-block-size: 3.25rem;
+        padding: 0.75rem 1.1rem;
+        text-decoration: none;
+      }
+
+      .button-link::after {
+        content: "→";
+        font-size: 1.2em;
+      }
+
+      .text-link {
+        font-weight: 750;
+        padding: 0.75rem 0.35rem;
+        text-underline-offset: 0.25em;
+      }
+
+      .window-figure {
+        background: var(--surface-strong);
+        box-shadow: var(--shadow);
+        color: #fff;
+        margin: 0;
+        overflow: hidden;
+        padding: 1rem;
+        transform: rotate(1.5deg);
+      }
+
+      .window-figure__header {
+        align-items: center;
+        border-block-end: 1px solid rgb(255 255 255 / 20%);
+        display: flex;
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 0.7rem;
+        justify-content: space-between;
+        letter-spacing: 0.08em;
+        padding-block-end: 0.75rem;
+        text-transform: uppercase;
+      }
+
+      .window-figure__status {
+        color: var(--accent);
+      }
+
+      .window-figure__rows {
+        display: grid;
+        gap: 0.45rem;
+        padding-block: 1rem;
+      }
+
+      .window-row {
+        align-items: center;
+        border: 1px solid rgb(255 255 255 / 20%);
+        display: grid;
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 0.76rem;
+        gap: 0.75rem;
+        grid-template-columns: 2.25rem 1fr auto;
+        padding: 0.75rem;
+      }
+
+      .window-row:nth-child(2) {
+        background: var(--accent);
+        border-color: var(--accent);
+        color: var(--accent-ink);
+      }
+
+      .window-row__line {
+        background: currentColor;
+        block-size: 0.35rem;
+        inline-size: 80%;
+        opacity: 0.45;
+      }
+
+      .window-figure figcaption {
+        color: rgb(255 255 255 / 68%);
+        font-size: 0.75rem;
+        line-height: 1.5;
+      }
+
+      .principles {
+        border-block: 1px solid var(--line);
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .principle {
+        display: grid;
+        gap: 0.65rem;
+        padding: 1.35rem;
+      }
+
+      .principle + .principle {
+        border-inline-start: 1px solid var(--line);
+      }
+
+      .principle strong {
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .principle p {
+        color: var(--muted);
+        font-size: 0.92rem;
+      }
+
+      .warning {
+        align-items: start;
+        background: var(--accent);
+        border: 1px solid var(--ink);
+        color: var(--accent-ink);
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: auto 1fr;
+        padding: clamp(1.25rem, 3vw, 2rem);
+      }
+
+      .warning__label {
+        border: 1px solid currentColor;
+        font-size: 0.7rem;
+        font-weight: 850;
+        letter-spacing: 0.1em;
+        padding: 0.35rem 0.5rem;
+        text-transform: uppercase;
+      }
+
+      .warning p {
+        font-size: clamp(1rem, 2vw, 1.25rem);
+        max-inline-size: 72ch;
+      }
+
+      .examples-section {
+        display: grid;
+        gap: 2rem;
+      }
+
+      .section-heading {
+        align-items: end;
+        display: flex;
+        gap: 2rem;
+        justify-content: space-between;
+      }
+
+      .section-heading p {
+        color: var(--muted);
+        max-inline-size: 36ch;
+      }
+
+      .examples {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .example {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        display: grid;
+        gap: 1.5rem;
+        grid-template-columns: auto minmax(0, 1fr) auto;
+        padding: clamp(1.5rem, 4vw, 2.5rem);
+      }
+
+      .example__index {
+        color: var(--signal);
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 0.8rem;
+        font-weight: 800;
+      }
+
+      .example__content {
+        display: grid;
+        gap: 0.65rem;
+      }
+
+      .example h3 {
+        font-size: clamp(1.4rem, 3vw, 2.25rem);
+        letter-spacing: -0.03em;
+        margin: 0;
+      }
+
+      .example p {
+        color: var(--muted);
+        max-inline-size: 62ch;
+      }
+
+      .example__link {
+        align-self: center;
+        align-items: center;
+        background: var(--ink);
+        border-radius: 50%;
+        color: #fff;
+        display: inline-flex;
+        font-size: 1.5rem;
+        block-size: 3.25rem;
+        inline-size: 3.25rem;
+        justify-content: center;
+        text-decoration: none;
+      }
+
+      .example__link::before {
+        content: "→";
+      }
+
+      .example__link span {
+        clip: rect(0 0 0 0);
+        clip-path: inset(50%);
+        block-size: 1px;
+        inline-size: 1px;
+        overflow: hidden;
+        position: absolute;
+        white-space: nowrap;
+      }
+
+      .demo-footer {
+        --demo-footer-background: #17231f;
+        --demo-footer-color: #ffffff;
+        --demo-footer-muted-color: #c1ccc6;
+        --demo-footer-link-color: #ffffff;
+        --demo-footer-border-color: rgb(255 255 255 / 18%);
+        --demo-footer-focus-color: var(--accent);
+        --demo-footer-space: clamp(1.25rem, 3vw, 2rem);
+
+        --_background: var(--demo-footer-background);
+        --_color: var(--demo-footer-color);
+        --_muted-color: var(--demo-footer-muted-color);
+        --_link-color: var(--demo-footer-link-color);
+        --_border-color: var(--demo-footer-border-color);
+        --_focus-color: var(--demo-footer-focus-color);
+        --_space: var(--demo-footer-space);
+
+        background: var(--_background);
+        border: 1px solid var(--_border-color);
+        color: var(--_color);
+        margin-block-end: 1rem;
+        padding: var(--_space);
+      }
+
+      .demo-footer__inner {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.25rem 2.5rem;
+        justify-content: space-between;
+      }
+
+      .demo-footer__brand {
+        display: grid;
+        gap: 0.35rem;
+      }
+
+      .demo-footer__eyebrow,
+      .demo-footer__credit,
+      .demo-footer__meta {
+        margin: 0;
+      }
+
+      .demo-footer__eyebrow,
+      .demo-footer__meta {
+        color: var(--_muted-color);
+        font-size: 0.76rem;
+      }
+
+      .demo-footer__eyebrow {
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .demo-footer__credit {
+        font-size: 0.95rem;
+      }
+
+      .demo-footer__plugin {
+        font-weight: 800;
+      }
+
+      .demo-footer__links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem 1.25rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .demo-footer__link {
+        color: var(--_link-color);
+        font-weight: 700;
+        text-decoration-thickness: 0.08em;
+        text-underline-offset: 0.22em;
+      }
+
+      .demo-footer__link:hover {
+        text-decoration-thickness: 0.15em;
+      }
+
+      .demo-footer__link:focus-visible {
+        outline: 3px solid var(--_focus-color);
+        outline-offset: 0.25rem;
+      }
+
+      .demo-footer__separator {
+        margin-inline: 0.35rem;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #101713;
+          --surface: #17231f;
+          --surface-strong: #e8eee7;
+          --ink: #edf3ec;
+          --muted: #a9b5ae;
+          --line: #3c4942;
+          --accent: #bde75f;
+          --accent-ink: #122718;
+          --signal: #ff825b;
+          --focus: #b1a9ff;
+          --shadow: 0 1.25rem 3rem rgb(0 0 0 / 24%);
+        }
+
+        .button-link,
+        .example__link {
+          color: #101713;
+        }
+
+        .window-figure {
+          background: #080d0a;
+        }
+      }
+
+      @media (max-width: 48rem) {
+        .hero {
+          align-items: stretch;
+          grid-template-columns: 1fr;
+        }
+
+        .window-figure {
+          transform: none;
+        }
+
+        .principles {
+          grid-template-columns: 1fr;
+        }
+
+        .principle + .principle {
+          border-block-start: 1px solid var(--line);
+          border-inline-start: 0;
+        }
+
+        .section-heading,
+        .demo-footer__inner {
+          align-items: start;
+          flex-direction: column;
+        }
+
+        .demo-footer__links {
+          flex-direction: column;
+        }
+
+        .example {
+          grid-template-columns: auto minmax(0, 1fr);
+        }
+
+        .example__link {
+          grid-column: 2;
+          justify-self: start;
+        }
+      }
+
+      @media (max-width: 30rem) {
+        .site-header {
+          align-items: flex-start;
+          gap: 1rem;
+        }
+
+        .brand {
+          letter-spacing: 0.04em;
+        }
+
+        .repo-link {
+          max-inline-size: 8rem;
+          text-align: end;
+        }
+
+        .warning {
+          grid-template-columns: 1fr;
+        }
+
+        .window-row {
+          grid-template-columns: 2rem 1fr;
+        }
+
+        .window-row span:last-child {
+          display: none;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+
+      @media (forced-colors: active) {
+        .brand__mark,
+        .warning,
+        .window-row:nth-child(2) {
+          forced-color-adjust: none;
+          background: Highlight;
+          color: HighlightText;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+      <a class="brand" href="./" aria-label="A11y Virtual List home">
+        <span class="brand__mark" aria-hidden="true">VL</span>
+        A11y Virtual List
+      </a>
+      <a
+        class="repo-link"
+        href="https://github.com/vmitsaras/A11y-Virtual-List"
+      >
+        Source on GitHub
+      </a>
+    </header>
+
+    <main id="main-content">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__copy">
+          <p class="eyebrow">Accessible by architecture</p>
+          <h1 id="hero-title">Render less. Preserve the route.</h1>
+          <p class="hero__lead">
+            Framework-independent TypeScript for windowing genuinely large
+            lists—with deliberate keyboard navigation, stable focus, range
+            announcements, and predictable cleanup.
+          </p>
+          <div class="hero__actions">
+            <a class="button-link" href="./basic/">Explore the live demos</a>
+            <a
+              class="text-link"
+              href="https://github.com/vmitsaras/A11y-Virtual-List#installation"
+            >
+              Read installation notes
+            </a>
+          </div>
+        </div>
+
+        <figure class="window-figure" aria-labelledby="window-caption">
+          <div class="window-figure__header">
+            <span>DOM window / 4,000 rows</span>
+            <span class="window-figure__status">24 mounted</span>
+          </div>
+          <div class="window-figure__rows" aria-hidden="true">
+            <div class="window-row">
+              <span>1998</span><span class="window-row__line"></span><span>idle</span>
+            </div>
+            <div class="window-row">
+              <span>1999</span><span class="window-row__line"></span><span>active</span>
+            </div>
+            <div class="window-row">
+              <span>2000</span><span class="window-row__line"></span><span>idle</span>
+            </div>
+            <div class="window-row">
+              <span>2001</span><span class="window-row__line"></span><span>idle</span>
+            </div>
+          </div>
+          <figcaption id="window-caption">
+            A small rendered window keeps the DOM lean while position metadata
+            preserves each row’s place in the full set.
+          </figcaption>
+        </figure>
+      </section>
+
+      <section class="principles" aria-label="Core qualities">
+        <div class="principle">
+          <strong>01 / Framework free</strong>
+          <p>Typed, dependency-free behavior that fits the platform you already use.</p>
+        </div>
+        <div class="principle">
+          <strong>02 / Focus aware</strong>
+          <p>Roving and listbox modes keep keyboard intent explicit and inspectable.</p>
+        </div>
+        <div class="principle">
+          <strong>03 / Lifecycle safe</strong>
+          <p>Update, restore, destroy, and initialize without leaving state behind.</p>
+        </div>
+      </section>
+
+      <aside class="warning" aria-labelledby="warning-title">
+        <strong class="warning__label" id="warning-title">Use with care</strong>
+        <p>
+          Virtualization is a performance escape hatch. Prefer pagination,
+          filtering, or “load more” for normal content because off-screen rows
+          cannot participate in find-in-page, printing, or screen reader browse
+          mode.
+        </p>
+      </aside>
+
+      <section class="examples-section" aria-labelledby="examples-title">
+        <div class="section-heading">
+          <h2 id="examples-title">Open the lab.</h2>
+          <p>
+            Inspect real patterns, exercise every state, and watch the rendered
+            DOM stay small.
+          </p>
+        </div>
+        <ul class="examples">
+          <li class="example">
+            <span class="example__index" aria-hidden="true">01</span>
+            <div class="example__content">
+              <h3>Basic virtual lists</h3>
+              <p>
+                Compare audit-log, notification, and listbox use cases with
+                keyboard checks, live range updates, scroll restoration, and
+                DOM-window metrics.
+              </p>
+            </div>
+            <a class="example__link" href="./basic/">
+              <span>Open basic virtual list demos</span>
+            </a>
+          </li>
+        </ul>
+      </section>
+    </main>
+
+    <footer class="demo-footer" data-demo-footer>
+      <div class="demo-footer__inner">
+        <div class="demo-footer__brand">
+          <p class="demo-footer__eyebrow">Accessibility plugin demo</p>
+          <p class="demo-footer__credit">
+            <span class="demo-footer__plugin">A11y Virtual List</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            Built by
+            <a class="demo-footer__link" href="https://github.com/vmitsaras/">
+              Vasileios Mitsaras
+            </a>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <a
+              class="demo-footer__link"
+              href="https://linkedin.com/in/vasilis-mitsaras"
+            >
+              LinkedIn profile
+            </a>
+          </p>
+          <p class="demo-footer__meta">
+            <span>a11y-virtual-list</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <span>MIT License</span>
+          </p>
+        </div>
+
+        <nav class="demo-footer__nav" aria-label="Project links">
+          <ul class="demo-footer__links">
+            <li class="demo-footer__item">
+              <a
+                class="demo-footer__link"
+                href="https://github.com/vmitsaras/A11y-Virtual-List"
+              >
+                GitHub repository
+              </a>
+            </li>
+            <li class="demo-footer__item">
+              <span>npm package (unreleased)</span>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+  </body>
+</html>

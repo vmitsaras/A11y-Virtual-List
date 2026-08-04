@@ -1,0 +1,1789 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta
+      name="description"
+      content="Test activity logs, live notification updates, listbox selection, and a 4,000-row virtual list with keyboard-driven interactive demos."
+    >
+    <meta name="author" content="Vasileios Mitsaras">
+    <meta name="robots" content="index,follow">
+    <link
+      rel="canonical"
+      href="https://vmitsaras.github.io/A11y-Virtual-List/basic/"
+    >
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:site_name" content="A11y Virtual List">
+    <meta
+      property="og:title"
+      content="Virtual List Interaction Demos | A11y Virtual List"
+    >
+    <meta
+      property="og:description"
+      content="Test activity logs, live notification updates, listbox selection, and a 4,000-row virtual list with keyboard-driven interactive demos."
+    >
+    <meta
+      property="og:url"
+      content="https://vmitsaras.github.io/A11y-Virtual-List/basic/"
+    >
+    <meta
+      property="og:image"
+      content="https://vmitsaras.github.io/A11y-Virtual-List/social-preview.png"
+    >
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1280">
+    <meta property="og:image:height" content="640">
+    <meta
+      property="og:image:alt"
+      content="A11y Virtual List social preview showing a focused window of list rows beside the project name."
+    >
+    <meta name="twitter:card" content="summary_large_image">
+    <meta
+      name="twitter:title"
+      content="Virtual List Interaction Demos | A11y Virtual List"
+    >
+    <meta
+      name="twitter:description"
+      content="Test activity logs, live notification updates, listbox selection, and a 4,000-row virtual list with keyboard-driven interactive demos."
+    >
+    <meta
+      name="twitter:image"
+      content="https://vmitsaras.github.io/A11y-Virtual-List/social-preview.png"
+    >
+    <meta
+      name="twitter:image:alt"
+      content="A11y Virtual List social preview showing a focused window of list rows beside the project name."
+    >
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%E2%89%A3%3C/text%3E%3C/svg%3E"
+    >
+    <title>Virtual List Interaction Demos | A11y Virtual List</title>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://vmitsaras.github.io/A11y-Virtual-List/basic/#webpage",
+            "url": "https://vmitsaras.github.io/A11y-Virtual-List/basic/",
+            "name": "Virtual List Interaction Demos | A11y Virtual List",
+            "description": "Test activity logs, live notification updates, listbox selection, and a 4,000-row virtual list with keyboard-driven interactive demos.",
+            "inLanguage": "en",
+            "isPartOf": {
+              "@id": "https://vmitsaras.github.io/A11y-Virtual-List/#webpage"
+            },
+            "author": {
+              "@id": "https://vmitsaras.github.io/A11y-Virtual-List/#author"
+            },
+            "mainEntity": {
+              "@id": "https://vmitsaras.github.io/A11y-Virtual-List/basic/#software"
+            }
+          },
+          {
+            "@type": "SoftwareSourceCode",
+            "@id": "https://vmitsaras.github.io/A11y-Virtual-List/basic/#software",
+            "name": "a11y-virtual-list",
+            "alternateName": "A11y Virtual List",
+            "description": "Accessible TypeScript virtual list behavior demonstrated through activity logs, notification updates, listbox selection, and a 4,000-row stress test.",
+            "codeRepository": "https://github.com/vmitsaras/A11y-Virtual-List",
+            "url": "https://vmitsaras.github.io/A11y-Virtual-List/basic/",
+            "programmingLanguage": "TypeScript",
+            "runtimePlatform": "Browser",
+            "license": "MIT",
+            "keywords": [
+              "accessible virtual list demo",
+              "keyboard navigation",
+              "listbox",
+              "windowed rendering",
+              "typescript"
+            ],
+            "featureList": [
+              "Roving keyboard activation for activity logs",
+              "Live notification dataset updates with undo",
+              "Keyboard-driven listbox selection",
+              "Rendered-window metrics for a 4,000-row dataset",
+              "Destroy and reinitialize lifecycle controls"
+            ],
+            "author": {
+              "@id": "https://vmitsaras.github.io/A11y-Virtual-List/#author"
+            },
+            "targetProduct": {
+              "@type": "SoftwareApplication",
+              "name": "A11y Virtual List",
+              "applicationCategory": "DeveloperApplication",
+              "operatingSystem": "Any",
+              "runtimePlatform": "Browser"
+            },
+            "sameAs": [
+              "https://github.com/vmitsaras/A11y-Virtual-List"
+            ]
+          },
+          {
+            "@type": "Person",
+            "@id": "https://vmitsaras.github.io/A11y-Virtual-List/#author",
+            "name": "Vasileios Mitsaras",
+            "url": "https://github.com/vmitsaras/",
+            "sameAs": [
+              "https://github.com/vmitsaras/",
+              "https://linkedin.com/in/vasilis-mitsaras"
+            ]
+          }
+        ]
+      }
+    </script>
+    <link rel="stylesheet" href="../../dist/styles.css">
+    <style>
+      :root {
+        color-scheme: light dark;
+        font-family:
+          Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", sans-serif;
+        --paper: #f2f0e8;
+        --surface: #fffdf7;
+        --surface-raised: #ffffff;
+        --surface-strong: #17231f;
+        --ink: #17231f;
+        --muted: #5c6862;
+        --line: #c7ccc3;
+        --line-strong: #7c8781;
+        --accent: #c9f36b;
+        --accent-soft: #eaf9c8;
+        --accent-ink: #17331f;
+        --signal: #ff6b3d;
+        --focus: #5546ff;
+        --link: #075f50;
+        --shadow: 0 1.15rem 2.75rem rgb(23 35 31 / 9%);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        background:
+          linear-gradient(90deg, rgb(23 35 31 / 4%) 1px, transparent 1px),
+          linear-gradient(rgb(23 35 31 / 4%) 1px, transparent 1px),
+          var(--paper);
+        background-size: 4rem 4rem;
+        color: var(--ink);
+        margin: 0;
+        min-block-size: 100vh;
+      }
+
+      a {
+        color: var(--link);
+        text-underline-offset: 0.2em;
+      }
+
+      a:focus-visible,
+      button:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+      }
+
+      .skip-link {
+        background: var(--surface-strong);
+        color: #fff;
+        inset-block-start: 0.75rem;
+        inset-inline-start: 0.75rem;
+        padding: 0.75rem 1rem;
+        position: fixed;
+        transform: translateY(-200%);
+        z-index: 20;
+      }
+
+      .skip-link:focus {
+        transform: translateY(0);
+      }
+
+      .site-header,
+      main,
+      .demo-footer {
+        inline-size: min(100% - 2rem, 78rem);
+        margin-inline: auto;
+      }
+
+      .site-header {
+        align-items: center;
+        border-block-end: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        padding-block: 1rem;
+      }
+
+      .brand {
+        align-items: center;
+        color: var(--ink);
+        display: inline-flex;
+        font-size: 0.8rem;
+        font-weight: 850;
+        gap: 0.65rem;
+        letter-spacing: 0.07em;
+        text-decoration: none;
+        text-transform: uppercase;
+      }
+
+      .brand__mark {
+        align-items: center;
+        background: var(--accent);
+        border: 1px solid var(--ink);
+        color: var(--accent-ink);
+        display: inline-flex;
+        font-size: 0.7rem;
+        font-weight: 900;
+        block-size: 2rem;
+        inline-size: 2rem;
+        justify-content: center;
+        letter-spacing: 0;
+        line-height: 1;
+      }
+
+      .site-nav {
+        align-items: center;
+        display: flex;
+        font-size: 0.85rem;
+        font-weight: 750;
+        gap: 1rem;
+      }
+
+      .site-nav a {
+        align-items: center;
+        display: inline-flex;
+        min-block-size: 2.75rem;
+      }
+
+      main {
+        display: grid;
+        gap: clamp(4rem, 8vw, 7rem);
+        grid-template-columns: minmax(0, 1fr);
+        padding-block: clamp(3rem, 8vw, 6.5rem);
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      p {
+        margin-block: 0;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4 {
+        line-height: 1.08;
+        overflow-wrap: anywhere;
+      }
+
+      h1,
+      h2 {
+        letter-spacing: -0.045em;
+      }
+
+      h1 {
+        font-size: clamp(3rem, 7.5vw, 6.5rem);
+        max-inline-size: 11ch;
+      }
+
+      h2 {
+        font-size: clamp(2rem, 4.5vw, 3.6rem);
+      }
+
+      h3 {
+        font-size: 1.25rem;
+      }
+
+      h4 {
+        font-size: 1rem;
+      }
+
+      p,
+      li {
+        line-height: 1.62;
+      }
+
+      code,
+      kbd {
+        font-family:
+          "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+        font-size: 0.9em;
+      }
+
+      code {
+        background: color-mix(in srgb, var(--ink) 7%, transparent);
+        border-radius: 0.2rem;
+        padding: 0.08em 0.3em;
+      }
+
+      kbd {
+        background: var(--surface-raised);
+        border: 1px solid var(--line-strong);
+        border-block-end-width: 3px;
+        border-radius: 0.3rem;
+        color: var(--ink);
+        display: inline-block;
+        font-weight: 750;
+        padding: 0.24rem 0.42rem;
+      }
+
+      .demo-hero {
+        align-items: end;
+        display: grid;
+        gap: clamp(2rem, 5vw, 5rem);
+        grid-template-columns: minmax(0, 1.25fr) minmax(17rem, 0.75fr);
+      }
+
+      .demo-hero__copy {
+        display: grid;
+        gap: 1.35rem;
+      }
+
+      .eyebrow,
+      .section-kicker {
+        align-items: center;
+        display: flex;
+        font-size: 0.72rem;
+        font-weight: 850;
+        gap: 0.6rem;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      .eyebrow::before,
+      .section-kicker::before {
+        background: var(--signal);
+        border-radius: 50%;
+        content: "";
+        block-size: 0.55rem;
+        inline-size: 0.55rem;
+      }
+
+      .demo-intro {
+        color: var(--muted);
+        font-size: clamp(1.05rem, 2vw, 1.3rem);
+        max-inline-size: 58ch;
+      }
+
+      .demo-hero__panel {
+        background: var(--surface-strong);
+        box-shadow: var(--shadow);
+        color: #fff;
+        display: grid;
+        gap: 1rem;
+        padding: clamp(1.25rem, 3vw, 2rem);
+      }
+
+      .demo-hero__panel strong {
+        color: var(--accent);
+        font-size: 0.75rem;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .key-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+
+      .demo-hero__panel kbd {
+        background: rgb(255 255 255 / 8%);
+        border-color: rgb(255 255 255 / 36%);
+        color: #fff;
+      }
+
+      .demo-hero__panel p {
+        color: rgb(255 255 255 / 70%);
+        font-size: 0.88rem;
+      }
+
+      .section-nav {
+        align-items: center;
+        border-block: 1px solid var(--line);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem 1.5rem;
+        padding-block: 1rem;
+      }
+
+      .section-nav strong {
+        font-size: 0.72rem;
+        letter-spacing: 0.1em;
+        margin-inline-end: auto;
+        text-transform: uppercase;
+      }
+
+      .section-nav a {
+        align-items: center;
+        display: inline-flex;
+        font-size: 0.87rem;
+        font-weight: 750;
+        min-block-size: 2.25rem;
+      }
+
+      .demo-section {
+        display: grid;
+        gap: 1.75rem;
+        grid-template-columns: minmax(0, 1fr);
+        scroll-margin-block-start: 1rem;
+      }
+
+      .section-heading {
+        display: grid;
+        gap: 0.75rem;
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .section-heading > p:not(.section-kicker) {
+        color: var(--muted);
+        max-inline-size: 70ch;
+      }
+
+      .instruction-grid,
+      .example-grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .instruction-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .example-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .demo-steps,
+      .demo-checklist {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: 0 0.65rem 1.5rem rgb(23 35 31 / 5%);
+        line-height: 1.6;
+        margin: 0;
+        padding: 1.5rem 1.5rem 1.5rem 3.25rem;
+      }
+
+      .demo-steps li + li,
+      .demo-checklist li + li {
+        margin-block-start: 0.75rem;
+      }
+
+      .demo-warning {
+        align-items: start;
+        background: var(--accent);
+        border: 1px solid var(--ink);
+        color: var(--accent-ink);
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: auto 1fr;
+        padding: clamp(1.25rem, 3vw, 2rem);
+      }
+
+      .demo-warning strong {
+        border: 1px solid currentColor;
+        font-size: 0.7rem;
+        letter-spacing: 0.1em;
+        padding: 0.35rem 0.5rem;
+        text-transform: uppercase;
+      }
+
+      .demo-warning p {
+        font-size: clamp(1rem, 2vw, 1.15rem);
+        max-inline-size: 76ch;
+      }
+
+      .example-card {
+        --a11y-virtual-list-viewport-height: 12rem;
+        --a11y-virtual-list-border: var(--line-strong);
+        --a11y-virtual-list-bg: var(--surface-raised);
+        --a11y-virtual-list-text: var(--ink);
+        --a11y-virtual-list-focus: var(--focus);
+        --a11y-virtual-list-muted: var(--muted);
+        --a11y-virtual-list-accent: var(--link);
+        --a11y-virtual-list-selected-bg: var(--accent-soft);
+        align-content: start;
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        display: grid;
+        gap: 1rem;
+        min-inline-size: 0;
+        padding: 1.35rem;
+      }
+
+      .example-card > p:not(.example-guidance, .example-output) {
+        color: var(--muted);
+        min-block-size: 4.75rem;
+      }
+
+      .example-card h3 {
+        align-items: center;
+        display: flex;
+        gap: 0.65rem;
+      }
+
+      .example-card h3::before {
+        background: var(--signal);
+        content: "";
+        block-size: 0.65rem;
+        inline-size: 0.65rem;
+      }
+
+      .example-card .a11y-virtual-list__title {
+        font-size: 1rem;
+      }
+
+      .example-card .a11y-virtual-list__item-inner,
+      [data-demo-list="audit-log"] .a11y-virtual-list__item-inner {
+        align-content: center;
+        gap: 0.1rem 0.65rem;
+        grid-template-columns: minmax(0, 1fr) auto;
+        grid-template-rows: auto auto;
+        padding-block: 0.45rem;
+      }
+
+      .example-card .a11y-virtual-list__item-inner > :first-child,
+      [data-demo-list="audit-log"] .a11y-virtual-list__item-inner > :first-child {
+        font-size: 0.88rem;
+        font-weight: 720;
+        grid-column: 1;
+        grid-row: 1;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .example-card .a11y-virtual-list__item-meta,
+      [data-demo-list="audit-log"] .a11y-virtual-list__item-meta {
+        font-size: 0.72rem;
+        grid-column: 1;
+        grid-row: 2;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      .example-card .a11y-virtual-list__item-badge,
+      [data-demo-list="audit-log"] .a11y-virtual-list__item-badge {
+        grid-column: 2;
+        grid-row: 1 / span 2;
+        min-inline-size: 3.75rem;
+        text-align: center;
+      }
+
+      .a11y-virtual-list__viewport {
+        border-radius: 0.5rem;
+      }
+
+      .a11y-virtual-list__status {
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 0.78rem;
+      }
+
+      .example-guidance {
+        background: color-mix(in srgb, var(--accent) 45%, var(--surface));
+        border-inline-start: 0.25rem solid var(--ink);
+        color: var(--ink);
+        font-size: 0.88rem;
+        padding: 0.75rem;
+      }
+
+      .example-output {
+        color: var(--muted);
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 0.76rem;
+        min-block-size: 2.5rem;
+      }
+
+      .example-actions,
+      .demo-toolbar {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem;
+      }
+
+      .demo-toolbar button,
+      .example-actions button {
+        background: var(--surface-raised);
+        border: 1px solid var(--ink);
+        color: var(--ink);
+        cursor: pointer;
+        font: inherit;
+        font-size: 0.84rem;
+        font-weight: 780;
+        min-block-size: 2.75rem;
+        padding: 0.6rem 0.8rem;
+      }
+
+      .demo-toolbar button:first-child,
+      .example-actions button:first-child {
+        background: var(--surface-strong);
+        color: #fff;
+      }
+
+      .demo-toolbar button[data-destroy] {
+        border-color: var(--signal);
+        color: color-mix(in srgb, var(--signal) 72%, var(--ink));
+      }
+
+      .demo-toolbar button:disabled,
+      .example-actions button:disabled {
+        cursor: not-allowed;
+        opacity: 0.55;
+      }
+
+      .lab-shell {
+        --a11y-virtual-list-border: var(--line-strong);
+        --a11y-virtual-list-bg: var(--surface-raised);
+        --a11y-virtual-list-text: var(--ink);
+        --a11y-virtual-list-focus: var(--focus);
+        --a11y-virtual-list-muted: var(--muted);
+        --a11y-virtual-list-accent: var(--link);
+        --a11y-virtual-list-selected-bg: var(--accent-soft);
+        background: var(--surface);
+        border: 1px solid var(--line);
+        box-shadow: var(--shadow);
+        display: grid;
+        gap: 1.25rem;
+        padding: clamp(1.25rem, 3vw, 2rem);
+      }
+
+      .demo-metrics,
+      .demo-feedback {
+        color: var(--muted);
+        font-family: "SFMono-Regular", Consolas, monospace;
+        font-size: 0.8rem;
+      }
+
+      .demo-feedback {
+        background: color-mix(in srgb, var(--accent) 35%, var(--surface));
+        border-inline-start: 0.25rem solid var(--link);
+        color: var(--ink);
+        padding: 0.65rem 0.8rem;
+      }
+
+      .demo-footer {
+        --demo-footer-background: #17231f;
+        --demo-footer-color: #ffffff;
+        --demo-footer-muted-color: #c1ccc6;
+        --demo-footer-link-color: #ffffff;
+        --demo-footer-border-color: rgb(255 255 255 / 18%);
+        --demo-footer-focus-color: var(--accent);
+        --demo-footer-space: clamp(1.25rem, 3vw, 2rem);
+
+        --_background: var(--demo-footer-background);
+        --_color: var(--demo-footer-color);
+        --_muted-color: var(--demo-footer-muted-color);
+        --_link-color: var(--demo-footer-link-color);
+        --_border-color: var(--demo-footer-border-color);
+        --_focus-color: var(--demo-footer-focus-color);
+        --_space: var(--demo-footer-space);
+
+        background: var(--_background);
+        border: 1px solid var(--_border-color);
+        color: var(--_color);
+        margin-block-end: 1rem;
+        padding: var(--_space);
+      }
+
+      .demo-footer__inner {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.25rem 2.5rem;
+        justify-content: space-between;
+      }
+
+      .demo-footer__brand {
+        display: grid;
+        gap: 0.35rem;
+      }
+
+      .demo-footer__eyebrow,
+      .demo-footer__credit,
+      .demo-footer__meta {
+        margin: 0;
+      }
+
+      .demo-footer__eyebrow,
+      .demo-footer__meta {
+        color: var(--_muted-color);
+        font-size: 0.76rem;
+      }
+
+      .demo-footer__eyebrow {
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+      }
+
+      .demo-footer__credit {
+        font-size: 0.95rem;
+      }
+
+      .demo-footer__plugin {
+        font-weight: 800;
+      }
+
+      .demo-footer__links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.65rem 1.25rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      .demo-footer__link {
+        color: var(--_link-color);
+        font-weight: 700;
+        text-decoration-thickness: 0.08em;
+        text-underline-offset: 0.22em;
+      }
+
+      .demo-footer__link:hover {
+        text-decoration-thickness: 0.15em;
+      }
+
+      .demo-footer__link:focus-visible {
+        outline: 3px solid var(--_focus-color);
+        outline-offset: 0.25rem;
+      }
+
+      .demo-footer__separator {
+        margin-inline: 0.35rem;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --paper: #101713;
+          --surface: #17231f;
+          --surface-raised: #1d2a25;
+          --surface-strong: #e8eee7;
+          --ink: #edf3ec;
+          --muted: #a9b5ae;
+          --line: #3c4942;
+          --line-strong: #76847c;
+          --accent: #bde75f;
+          --accent-soft: #30451e;
+          --accent-ink: #122718;
+          --signal: #ff825b;
+          --focus: #b1a9ff;
+          --link: #9cebc7;
+          --shadow: 0 1.25rem 3rem rgb(0 0 0 / 24%);
+        }
+
+        .demo-hero__panel,
+        .demo-toolbar button:first-child,
+        .example-actions button:first-child {
+          color: #101713;
+        }
+      }
+
+      @media (max-width: 64rem) {
+        .example-grid {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+
+        .example-card:last-child {
+          grid-column: 1 / -1;
+        }
+
+        .example-card > p:not(.example-guidance, .example-output) {
+          min-block-size: auto;
+        }
+      }
+
+      @media (max-width: 48rem) {
+        .demo-hero,
+        .instruction-grid,
+        .example-grid {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        .example-card:last-child {
+          grid-column: auto;
+        }
+
+        .demo-footer__inner {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .demo-footer__links {
+          flex-direction: column;
+        }
+      }
+
+      @media (max-width: 34rem) {
+        .site-header {
+          align-items: flex-start;
+        }
+
+        .site-nav {
+          align-items: flex-end;
+          flex-direction: column;
+          gap: 0.4rem;
+        }
+
+        .section-nav {
+          align-items: flex-start;
+          flex-direction: column;
+        }
+
+        .section-nav strong {
+          margin-block-end: 0.3rem;
+        }
+
+        .demo-warning {
+          grid-template-columns: 1fr;
+        }
+
+        .demo-toolbar,
+        .example-actions {
+          align-items: stretch;
+          flex-direction: column;
+        }
+
+        .demo-toolbar button,
+        .example-actions button {
+          inline-size: 100%;
+        }
+
+        .example-actions .example-output {
+          inline-size: 100%;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+
+      @media (forced-colors: active) {
+        .brand__mark,
+        .demo-warning,
+        .example-guidance {
+          forced-color-adjust: none;
+          background: Highlight;
+          color: HighlightText;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header class="site-header">
+      <a class="brand" href="../" aria-label="A11y Virtual List home">
+        <span class="brand__mark" aria-hidden="true">VL</span>
+        A11y Virtual List
+      </a>
+      <nav class="site-nav" aria-label="Project">
+        <a href="../">Examples</a>
+        <a href="https://github.com/vmitsaras/A11y-Virtual-List">GitHub</a>
+      </nav>
+    </header>
+
+    <main id="main-content">
+      <section class="demo-hero" aria-labelledby="page-title">
+        <div class="demo-hero__copy">
+          <p class="eyebrow">Interactive field notes</p>
+          <h1 id="page-title">Virtual list interaction lab.</h1>
+          <p class="demo-intro">
+            Four runnable patterns for examining windowed rendering, focus,
+            activation, selection, live updates, restoration, and cleanup under
+            realistic pressure.
+          </p>
+        </div>
+
+        <aside class="demo-hero__panel" aria-labelledby="keyboard-title">
+          <strong id="keyboard-title">Keyboard protocol</strong>
+          <div class="key-grid" aria-label="Supported keys">
+            <kbd>↑</kbd><kbd>↓</kbd><kbd>Home</kbd><kbd>End</kbd>
+            <kbd>Page Up</kbd><kbd>Page Down</kbd><kbd>Enter</kbd><kbd>Space</kbd>
+          </div>
+          <p>
+            Focus a list viewport, move through rows, then activate or select
+            without trapping Tab navigation.
+          </p>
+        </aside>
+      </section>
+
+      <nav class="section-nav" aria-label="On this page">
+        <strong>Jump to</strong>
+        <a href="#setup">Setup</a>
+        <a href="#patterns">Product patterns</a>
+        <a href="#stress-test">Stress test</a>
+      </nav>
+
+      <section
+        class="demo-section"
+        id="setup"
+        aria-labelledby="instructions-title"
+      >
+        <div class="section-heading">
+          <p class="section-kicker">01 / Prepare</p>
+          <h2 id="instructions-title">Before you try the demos</h2>
+          <p>
+            Each example includes a nearby prompt describing its interaction
+            model and the result to expect.
+          </p>
+        </div>
+
+        <div class="instruction-grid">
+          <ol class="demo-steps">
+            <li>Run <code>npm run build</code> from the repository root.</li>
+            <li>
+              Open <code>examples/basic/index.html</code>, or serve the
+              repository with a local static server.
+            </li>
+            <li>
+              Follow each <strong>Try it</strong> prompt; the examples demonstrate
+              navigation, activation, selection, and dataset updates.
+            </li>
+            <li>
+              Use the scroll buttons and watch the rendered DOM item count stay
+              much smaller than the full 4,000-item dataset.
+            </li>
+          </ol>
+
+          <ul class="demo-checklist">
+            <li>Use a stable <code>rowHeight</code> whenever rows are uniform.</li>
+            <li>Provide <code>getKey</code> so rows keep stable identities.</li>
+            <li>
+              Use <code>navigation: "roving"</code> for non-interactive rows and
+              <code>navigation: "listbox"</code> only for option picking.
+            </li>
+            <li>
+              Test browser find-in-page, print output, and your target screen
+              reader/browser pairs before shipping a virtualized list.
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <aside class="demo-warning" aria-labelledby="warning-title">
+        <strong id="warning-title">Use with care</strong>
+        <p>
+          Do not use <code>A11yVirtualList</code> for normal content pages.
+          Virtualization removes off-screen content from the DOM and can break
+          browser find-in-page, screen reader browse behavior, print output, and
+          expected document semantics. Prefer pagination, server-side filtering,
+          or “load more” unless virtualization is genuinely required.
+        </p>
+      </aside>
+
+      <section
+        class="demo-section"
+        id="patterns"
+        aria-labelledby="examples-title"
+      >
+        <div class="section-heading">
+          <p class="section-kicker">02 / Compare</p>
+          <h2 id="examples-title">Real-world minimal examples</h2>
+          <p>
+            Each example below is a real initialized virtual list with its own
+            semantic shell, data hook, and small dataset.
+          </p>
+        </div>
+
+        <div class="example-grid">
+          <article class="example-card">
+            <h3>Activity log</h3>
+            <p>
+              Good for admin timelines, audit logs, and event histories where
+              rows are read or activated, not selected.
+            </p>
+            <p class="example-guidance">
+              <strong>Try it:</strong> Click or tap a row, or focus the list,
+              move with the arrow keys, then press Enter or Space to activate
+              the current event.
+            </p>
+            <p
+              class="example-output"
+              data-activity-output
+              role="status"
+              aria-live="polite"
+            >
+              Activated event: none
+            </p>
+            <section
+              class="a11y-virtual-list"
+              data-a11y-virtual-list
+              data-example-list="activity-log"
+              data-row-height="64"
+              data-overscan="3"
+              data-navigation="roving"
+              data-restore-scroll="false"
+              aria-labelledby="activity-log-example-title"
+            >
+              <header class="a11y-virtual-list__header">
+                <h4
+                  id="activity-log-example-title"
+                  class="a11y-virtual-list__title"
+                >
+                  Security activity
+                </h4>
+                <p
+                  id="activity-log-example-description"
+                  class="a11y-virtual-list__description"
+                >
+                  Use Arrow keys to move and Enter or Space to activate, or
+                  click or tap a row.
+                </p>
+                <p
+                  class="a11y-virtual-list__status"
+                  data-a11y-virtual-list-status
+                  aria-live="polite"
+                  aria-atomic="true"
+                >
+                  Loading activity
+                </p>
+              </header>
+
+              <div
+                class="a11y-virtual-list__viewport"
+                data-a11y-virtual-list-viewport
+                tabindex="0"
+                aria-label="Security activity events"
+                aria-describedby="activity-log-example-description"
+              >
+                <div
+                  class="a11y-virtual-list__spacer"
+                  data-a11y-virtual-list-spacer
+                >
+                  <ol
+                    class="a11y-virtual-list__items"
+                    data-a11y-virtual-list-items
+                  ></ol>
+                </div>
+              </div>
+            </section>
+          </article>
+
+          <article class="example-card">
+            <h3>Notification inbox</h3>
+            <p>
+              Useful when a live dataset changes and you need to replace the
+              item array without rebuilding the component.
+            </p>
+            <p class="example-guidance">
+              <strong>Try it:</strong> Mark the unread notifications as read,
+              then use Undo to restore them.
+            </p>
+            <div class="example-actions">
+              <button
+                type="button"
+                data-mark-notifications-read
+                aria-controls="notification-example-viewport"
+              >
+                Mark unread as read
+              </button>
+              <button
+                type="button"
+                data-undo-notifications
+                aria-controls="notification-example-viewport"
+                hidden
+              >
+                Undo
+              </button>
+              <p
+                class="example-output"
+                data-notification-summary
+                role="status"
+                aria-live="polite"
+              >
+                Unread notifications: 0
+              </p>
+            </div>
+
+            <section
+              class="a11y-virtual-list"
+              data-a11y-virtual-list
+              data-example-list="notifications"
+              data-row-height="64"
+              data-overscan="3"
+              data-navigation="roving"
+              data-restore-key="notification-inbox-example"
+              aria-labelledby="notification-example-title"
+            >
+              <header class="a11y-virtual-list__header">
+                <h4
+                  id="notification-example-title"
+                  class="a11y-virtual-list__title"
+                >
+                  Product notifications
+                </h4>
+                <p
+                  id="notification-example-description"
+                  class="a11y-virtual-list__description"
+                >
+                  Use Arrow keys to review notifications. Native controls inside
+                  rows keep their own keyboard and pointer behavior.
+                </p>
+                <p
+                  class="a11y-virtual-list__status"
+                  data-a11y-virtual-list-status
+                  aria-live="polite"
+                  aria-atomic="true"
+                >
+                  Loading notifications
+                </p>
+              </header>
+
+              <div
+                class="a11y-virtual-list__viewport"
+                id="notification-example-viewport"
+                data-a11y-virtual-list-viewport
+                tabindex="0"
+                aria-label="Product notifications"
+                aria-describedby="notification-example-description"
+              >
+                <div
+                  class="a11y-virtual-list__spacer"
+                  data-a11y-virtual-list-spacer
+                >
+                  <ol
+                    class="a11y-virtual-list__items"
+                    data-a11y-virtual-list-items
+                  ></ol>
+                </div>
+              </div>
+            </section>
+          </article>
+
+          <article class="example-card">
+            <h3>Country picker</h3>
+            <p>
+              Use listbox mode only when each row is an option and selection is
+              the primary action.
+            </p>
+            <p class="example-guidance">
+              <strong>Try it:</strong> Click or tap an option, or focus the
+              list, move to a country, then press Enter or Space to commit your
+              selection.
+            </p>
+            <p
+              class="example-output"
+              data-country-choice
+              role="status"
+              aria-live="polite"
+            >
+              Selected country: none
+            </p>
+
+            <section
+              class="a11y-virtual-list"
+              data-a11y-virtual-list
+              data-example-list="country-picker"
+              data-row-height="64"
+              data-overscan="4"
+              data-navigation="listbox"
+              data-restore-scroll="false"
+              aria-labelledby="country-picker-example-title"
+            >
+              <header class="a11y-virtual-list__header">
+                <h4
+                  id="country-picker-example-title"
+                  class="a11y-virtual-list__title"
+                >
+                  Shipping country
+                </h4>
+                <p
+                  id="country-picker-example-description"
+                  class="a11y-virtual-list__description"
+                >
+                  Click or tap an option, or move with the arrow keys and press
+                  Enter or Space to select.
+                </p>
+                <p
+                  class="a11y-virtual-list__status"
+                  data-a11y-virtual-list-status
+                  aria-live="polite"
+                  aria-atomic="true"
+                >
+                  Loading countries
+                </p>
+              </header>
+
+              <div
+                class="a11y-virtual-list__viewport"
+                data-a11y-virtual-list-viewport
+                tabindex="0"
+                aria-label="Shipping countries"
+                aria-describedby="country-picker-example-description"
+              >
+                <div
+                  class="a11y-virtual-list__spacer"
+                  data-a11y-virtual-list-spacer
+                >
+                  <ol
+                    class="a11y-virtual-list__items"
+                    data-a11y-virtual-list-items
+                  ></ol>
+                </div>
+              </div>
+            </section>
+          </article>
+        </div>
+      </section>
+
+      <section
+        class="demo-section"
+        id="stress-test"
+        aria-labelledby="live-demo-title"
+      >
+        <div class="section-heading">
+          <p class="section-kicker">03 / Stress test</p>
+          <h2 id="live-demo-title">Runnable audit log</h2>
+          <p>
+            This example renders a small moving window from 4,000 generated log
+            rows. Click or tap a row, or focus the list, navigate with Arrow,
+            Home, End, Page Up, or Page Down, then press Enter or Space to
+            activate the current entry.
+          </p>
+        </div>
+
+        <div class="lab-shell">
+          <div
+            class="demo-toolbar"
+            role="group"
+            aria-label="Virtual list controls"
+          >
+          <button
+            type="button"
+            data-scroll-target="2000"
+            aria-controls="audit-log-viewport"
+          >
+            Scroll to item 2,000
+          </button>
+          <button
+            type="button"
+            data-scroll-target="3999"
+            aria-controls="audit-log-viewport"
+          >
+            Scroll to last item
+          </button>
+          <button type="button" data-destroy aria-controls="audit-log-viewport">
+            Destroy component
+          </button>
+          <button
+            type="button"
+            data-reinitialize
+            aria-controls="audit-log-viewport"
+            hidden
+          >
+            Reinitialize demo
+          </button>
+          </div>
+
+          <p class="demo-metrics" data-demo-metrics>
+            Rendered DOM items: 0
+          </p>
+
+          <p
+            class="demo-feedback"
+            data-audit-activation
+            role="status"
+            aria-live="polite"
+          >
+            Activated audit entry: none
+          </p>
+
+          <section
+            class="a11y-virtual-list"
+            data-a11y-virtual-list
+            data-demo-list="audit-log"
+            data-row-height="64"
+            data-overscan="6"
+            data-navigation="roving"
+            data-restore-key="audit-log-demo"
+            aria-labelledby="audit-log-title"
+          >
+          <header class="a11y-virtual-list__header">
+            <h3 id="audit-log-title" class="a11y-virtual-list__title">
+              Audit log
+            </h3>
+            <p
+              id="audit-log-description"
+              class="a11y-virtual-list__description"
+            >
+              Use Arrow keys, Home, End, Page Up, and Page Down to move. Press
+              Enter or Space, or click or tap a row, to activate it.
+            </p>
+            <p
+              class="a11y-virtual-list__status"
+              data-a11y-virtual-list-status
+              aria-live="polite"
+              aria-atomic="true"
+            >
+              Showing items 1–40 of 4,000
+            </p>
+          </header>
+
+          <div
+            class="a11y-virtual-list__viewport"
+            id="audit-log-viewport"
+            data-a11y-virtual-list-viewport
+            tabindex="0"
+            aria-label="Audit log entries"
+            aria-describedby="audit-log-description"
+          >
+            <div
+              class="a11y-virtual-list__spacer"
+              data-a11y-virtual-list-spacer
+            >
+              <ol
+                class="a11y-virtual-list__items"
+                data-a11y-virtual-list-items
+              ></ol>
+            </div>
+          </div>
+
+          <noscript>
+            <p>
+              JavaScript is required for the virtualized demo. Use a paginated
+              fallback view instead.
+            </p>
+          </noscript>
+          </section>
+        </div>
+      </section>
+    </main>
+
+    <footer class="demo-footer" data-demo-footer>
+      <div class="demo-footer__inner">
+        <div class="demo-footer__brand">
+          <p class="demo-footer__eyebrow">Accessibility plugin demo</p>
+          <p class="demo-footer__credit">
+            <span class="demo-footer__plugin">A11y Virtual List</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            Built by
+            <a class="demo-footer__link" href="https://github.com/vmitsaras/">
+              Vasileios Mitsaras
+            </a>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <a
+              class="demo-footer__link"
+              href="https://linkedin.com/in/vasilis-mitsaras"
+            >
+              LinkedIn profile
+            </a>
+          </p>
+          <p class="demo-footer__meta">
+            <span>a11y-virtual-list</span>
+            <span class="demo-footer__separator" aria-hidden="true">&middot;</span>
+            <span>MIT License</span>
+          </p>
+        </div>
+
+        <nav class="demo-footer__nav" aria-label="Project links">
+          <ul class="demo-footer__links">
+            <li class="demo-footer__item">
+              <a
+                class="demo-footer__link"
+                href="https://github.com/vmitsaras/A11y-Virtual-List"
+              >
+                GitHub repository
+              </a>
+            </li>
+            <li class="demo-footer__item">
+              <span>npm package (unreleased)</span>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </footer>
+
+    <script type="module">
+      import { createVirtualList } from "../../dist/index.js";
+
+      const activityRoot = document.querySelector(
+        '[data-example-list="activity-log"]'
+      );
+      const notificationRoot = document.querySelector(
+        '[data-example-list="notifications"]'
+      );
+      const countryRoot = document.querySelector(
+        '[data-example-list="country-picker"]'
+      );
+      const auditRoot = document.querySelector('[data-demo-list="audit-log"]');
+      const metrics = document.querySelector("[data-demo-metrics]");
+      const activityOutput = document.querySelector("[data-activity-output]");
+      const notificationSummary = document.querySelector(
+        "[data-notification-summary]"
+      );
+      const markReadButton = document.querySelector(
+        "[data-mark-notifications-read]"
+      );
+      const undoReadButton = document.querySelector(
+        "[data-undo-notifications]"
+      );
+      const countryChoice = document.querySelector("[data-country-choice]");
+      const auditStatus = auditRoot?.querySelector(
+        "[data-a11y-virtual-list-status]"
+      );
+      const auditActivation = document.querySelector(
+        "[data-audit-activation]"
+      );
+      const destroyButton = document.querySelector("[data-destroy]");
+      const reinitializeButton = document.querySelector("[data-reinitialize]");
+      const scrollButtons = Array.from(
+        document.querySelectorAll("[data-scroll-target]")
+      );
+      let auditInstance = null;
+      let notificationInstance = null;
+      let previousNotifications = null;
+
+      const createRow = ({ title, meta, badge }) => {
+        const li = document.createElement("li");
+        const inner = document.createElement("span");
+        const label = document.createElement("span");
+
+        li.className = "a11y-virtual-list__item";
+        li.dataset.a11yVirtualListItem = "";
+
+        inner.className = "a11y-virtual-list__item-inner";
+        label.textContent = title;
+        inner.append(label);
+
+        if (meta) {
+          const metaText = document.createElement("span");
+          metaText.className = "a11y-virtual-list__item-meta";
+          metaText.textContent = meta;
+          inner.append(metaText);
+        }
+
+        if (badge) {
+          const state = document.createElement("span");
+          state.className = "a11y-virtual-list__item-badge";
+          state.textContent = badge;
+          inner.append(state);
+        }
+
+        li.append(inner);
+
+        return li;
+      };
+
+      const activityActors = ["Ana", "Bo", "Chen", "Dia", "Eli", "Fatima"];
+      const activityActions = [
+        "approved an invoice",
+        "reset a password",
+        "exported a report",
+        "updated a role",
+        "created an API token",
+        "disabled an integration"
+      ];
+      const activityEvents = Array.from({ length: 180 }, (_, index) => ({
+        id: `activity-${index + 1}`,
+        actor: activityActors[index % activityActors.length],
+        action: activityActions[index % activityActions.length],
+        resource: `Workspace ${1 + (index % 8)}`,
+        severity: index % 7 === 0 ? "review" : "ok"
+      }));
+
+      let notifications = Array.from({ length: 120 }, (_, index) => ({
+        id: `notification-${index + 1}`,
+        title: [
+          "Deployment finished",
+          "New comment on task",
+          "Billing threshold reached",
+          "Integration needs attention",
+          "Weekly summary is ready"
+        ][index % 5],
+        team: ["Platform", "Support", "Finance", "Design"][index % 4],
+        read: index % 3 === 0
+      }));
+
+      const countries = [
+        { code: "AR", name: "Argentina", region: "Americas" },
+        { code: "AU", name: "Australia", region: "Oceania" },
+        { code: "BE", name: "Belgium", region: "Europe" },
+        { code: "BR", name: "Brazil", region: "Americas" },
+        { code: "CA", name: "Canada", region: "Americas" },
+        { code: "CL", name: "Chile", region: "Americas" },
+        { code: "CN", name: "China", region: "Asia" },
+        { code: "DK", name: "Denmark", region: "Europe" },
+        { code: "EG", name: "Egypt", region: "Africa" },
+        { code: "FI", name: "Finland", region: "Europe" },
+        { code: "FR", name: "France", region: "Europe" },
+        { code: "DE", name: "Germany", region: "Europe" },
+        { code: "GR", name: "Greece", region: "Europe" },
+        { code: "IN", name: "India", region: "Asia" },
+        { code: "IE", name: "Ireland", region: "Europe" },
+        { code: "IT", name: "Italy", region: "Europe" },
+        { code: "JP", name: "Japan", region: "Asia" },
+        { code: "KE", name: "Kenya", region: "Africa" },
+        { code: "MX", name: "Mexico", region: "Americas" },
+        { code: "NL", name: "Netherlands", region: "Europe" },
+        { code: "NZ", name: "New Zealand", region: "Oceania" },
+        { code: "NO", name: "Norway", region: "Europe" },
+        { code: "PT", name: "Portugal", region: "Europe" },
+        { code: "SG", name: "Singapore", region: "Asia" },
+        { code: "ZA", name: "South Africa", region: "Africa" },
+        { code: "ES", name: "Spain", region: "Europe" },
+        { code: "SE", name: "Sweden", region: "Europe" },
+        { code: "CH", name: "Switzerland", region: "Europe" },
+        { code: "GB", name: "United Kingdom", region: "Europe" },
+        { code: "US", name: "United States", region: "Americas" }
+      ];
+
+      const levels = ["info", "warning", "error"];
+      const auditItems = Array.from({ length: 4000 }, (_, index) => ({
+        id: `log-${index + 1}`,
+        level: levels[index % levels.length],
+        label: `Audit log entry ${index + 1}`,
+        timestamp: new Date(Date.UTC(2026, 5, 30, 8, index % 60)).toISOString()
+      }));
+
+      const updateMetrics = () => {
+        if (!(metrics instanceof HTMLElement) || !auditRoot) {
+          return;
+        }
+
+        const renderedCount = auditRoot.querySelectorAll(
+          "[data-a11y-virtual-list-item]"
+        ).length;
+
+        metrics.textContent = `Rendered DOM items: ${renderedCount}`;
+      };
+
+      const updateNotificationSummary = (message = "") => {
+        const unreadCount = notifications.filter((note) => !note.read).length;
+
+        if (notificationSummary instanceof HTMLElement) {
+          const summary = `Unread notifications: ${unreadCount}`;
+          notificationSummary.textContent = message
+            ? `${message} ${summary}.`
+            : summary;
+        }
+
+        if (markReadButton instanceof HTMLButtonElement) {
+          markReadButton.disabled = unreadCount === 0;
+          markReadButton.textContent = unreadCount > 0
+            ? `Mark ${unreadCount} notifications as read`
+            : "All notifications read";
+        }
+
+        if (undoReadButton instanceof HTMLButtonElement) {
+          undoReadButton.hidden = previousNotifications === null;
+        }
+      };
+
+      const updateCountryChoice = (country) => {
+        if (countryChoice instanceof HTMLElement) {
+          countryChoice.textContent =
+            `Selected country: ${country.name} (${country.code})`;
+        }
+      };
+
+      if (activityRoot instanceof HTMLElement) {
+        createVirtualList(activityRoot, {
+          items: activityEvents,
+          rowHeight: 64,
+          navigation: "roving",
+          restoreScroll: false,
+          getKey: (event) => event.id,
+          renderItem: (event, index) =>
+            createRow({
+              title: `${index + 1}. ${event.actor} ${event.action}`,
+              meta: event.resource,
+              badge: event.severity
+            }),
+          onActivate: (event, index) => {
+            if (activityOutput instanceof HTMLElement) {
+              activityOutput.textContent =
+                `Activated event ${index + 1}: ${event.actor} ${event.action}.`;
+            }
+          }
+        });
+      }
+
+      if (notificationRoot instanceof HTMLElement) {
+        notificationInstance = createVirtualList(notificationRoot, {
+          items: notifications,
+          rowHeight: 64,
+          navigation: "roving",
+          restoreKey: "notification-inbox-example",
+          getKey: (note) => note.id,
+          renderItem: (note) =>
+            createRow({
+              title: note.title,
+              meta: note.team,
+              badge: note.read ? "Read" : "Unread"
+            })
+        });
+
+        notificationRoot.addEventListener(
+          "a11y-virtual-list:render",
+          () => updateNotificationSummary()
+        );
+        updateNotificationSummary();
+      }
+
+      if (markReadButton instanceof HTMLButtonElement) {
+        markReadButton.addEventListener("click", () => {
+          const unreadCount = notifications.filter((note) => !note.read).length;
+          previousNotifications = notifications;
+          notifications = notifications.map((note) => ({
+            ...note,
+            read: true
+          }));
+
+          notificationInstance?.updateItems(notifications);
+          updateNotificationSummary(
+            `${unreadCount} notifications marked as read.`
+          );
+        });
+      }
+
+      if (undoReadButton instanceof HTMLButtonElement) {
+        undoReadButton.addEventListener("click", () => {
+          if (!previousNotifications) {
+            return;
+          }
+
+          notifications = previousNotifications;
+          previousNotifications = null;
+          notificationInstance?.updateItems(notifications);
+          updateNotificationSummary("Notification update undone.");
+        });
+      }
+
+      if (countryRoot instanceof HTMLElement) {
+        createVirtualList(countryRoot, {
+          items: countries,
+          rowHeight: 64,
+          navigation: "listbox",
+          selectionFollowsFocus: false,
+          restoreScroll: false,
+          getKey: (country) => country.code,
+          renderItem: (country) =>
+            createRow({
+              title: country.name,
+              meta: country.region,
+              badge: country.code
+            }),
+          onSelect: updateCountryChoice
+        });
+      }
+
+      const setAuditControlsDisabled = (disabled) => {
+        scrollButtons.forEach((button) => {
+          if (button instanceof HTMLButtonElement) {
+            button.disabled = disabled;
+          }
+        });
+
+        if (destroyButton instanceof HTMLButtonElement) {
+          destroyButton.disabled = disabled;
+        }
+
+        if (reinitializeButton instanceof HTMLButtonElement) {
+          reinitializeButton.hidden = !disabled;
+        }
+      };
+
+      const initializeAuditDemo = () => {
+        if (!(auditRoot instanceof HTMLElement)) {
+          return;
+        }
+
+        auditInstance = createVirtualList(auditRoot, {
+          items: auditItems,
+          rowHeight: 64,
+          navigation: "roving",
+          getKey: (item) => item.id,
+          renderItem: (item, index, meta) => {
+            const li = document.createElement("li");
+            const inner = document.createElement("span");
+            const label = document.createElement("span");
+            const metaText = document.createElement("span");
+            const state = document.createElement("span");
+
+            li.className = "a11y-virtual-list__item";
+            li.dataset.a11yVirtualListItem = "";
+            li.setAttribute("aria-posinset", String(meta.posInSet));
+            li.setAttribute("aria-setsize", String(meta.setSize));
+
+            inner.className = "a11y-virtual-list__item-inner";
+            label.textContent = `${index + 1}. [${item.level}] ${item.label}`;
+            metaText.className = "a11y-virtual-list__item-meta";
+            metaText.textContent = item.timestamp;
+            state.className = "a11y-virtual-list__item-badge";
+            state.textContent = meta.isActive ? "Active" : "Queued";
+
+            inner.append(label, metaText, state);
+            li.append(inner);
+            return li;
+          },
+          onActivate: (item, index) => {
+            if (auditActivation instanceof HTMLElement) {
+              auditActivation.textContent =
+                `Activated audit entry ${index + 1}: ${item.label}.`;
+            }
+          }
+        });
+
+        if (auditActivation instanceof HTMLElement) {
+          auditActivation.textContent = "Activated audit entry: none";
+        }
+
+        setAuditControlsDisabled(false);
+        updateMetrics();
+      };
+
+      if (auditRoot instanceof HTMLElement) {
+        auditRoot.addEventListener("a11y-virtual-list:render", updateMetrics);
+        initializeAuditDemo();
+      }
+
+      scrollButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          if (!(button instanceof HTMLButtonElement) || !auditInstance) {
+            return;
+          }
+
+          auditInstance.scrollToIndex(
+            Number(button.dataset.scrollTarget),
+            "center"
+          );
+        });
+      });
+
+      destroyButton?.addEventListener("click", () => {
+        if (!auditInstance) {
+          return;
+        }
+
+        auditInstance.destroy();
+        auditInstance = null;
+
+        if (auditStatus instanceof HTMLElement) {
+          auditStatus.textContent =
+            "Demo destroyed. Reinitialize the demo to restore the list.";
+        }
+
+        if (auditActivation instanceof HTMLElement) {
+          auditActivation.textContent = "No audit entry is active.";
+        }
+
+        setAuditControlsDisabled(true);
+        updateMetrics();
+      });
+
+      reinitializeButton?.addEventListener("click", initializeAuditDemo);
+    </script>
+  </body>
+</html>
