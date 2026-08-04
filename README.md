@@ -6,22 +6,15 @@ Accessible TypeScript virtual list plugin for huge datasets.
 
 ## Release Status
 
-This repository is an initial-release candidate. The package has not been
-published to npm, and the GitHub Pages demo has not been deployed. Their public
-endpoints are therefore intentionally treated as **unreleased** until a
-maintainer completes those separate release steps.
-
-Until the first npm release, clone the repository and use the development setup
-below. The installation commands in the next section describe the future
-consumer workflow; they do not yet resolve to a published package.
+Version 1.0.0 is the initial stable npm release. The GitHub Pages demo has not
+yet been deployed, so use the local examples until that separate deployment is
+complete.
 
 > Do not use `A11yVirtualList` for normal content pages. Virtualization removes off-screen content from the DOM and can break browser find-in-page, screen reader browse behavior, print output, and expected document semantics. Prefer pagination, server-side filtering, or “load more” unless virtualization is genuinely required.
 
 Virtualization is a performance escape hatch, not a content layout pattern. Use it only when the dataset is genuinely large, profiling shows a real rendering problem, pagination or filtering is not enough, and keyboard plus assistive technology behavior has been tested.
 
 ## Installation
-
-After the initial npm release:
 
 ```bash
 npm install a11y-virtual-list
